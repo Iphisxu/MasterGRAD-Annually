@@ -6,3 +6,8 @@ datadir = 'D:/data/Graduation/'
 # ===================
 
 demodir = datadir + 'FNL/test/'
+batchdir = datadir + 'FNL/test_batch_read/'
+
+# ===================
+# namelist for work
+# ===================
