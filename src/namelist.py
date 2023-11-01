@@ -24,14 +24,6 @@ def get_END(year,month):
         END = f'{year}-09-30T23'
     return END
 
-
-# ===================
-# namelist for fnl composite (abandoned)
-# ===================
-
-demodir = datadir + 'FNL/test/'
-batchdir = datadir + 'FNL/test_batch_read/'
-
 # ===================
 # namelist for data preprocess
 # ===================
@@ -48,3 +40,9 @@ CB_Jul = datadir + 'COMBINE/Jul/'
 # ===================
 
 processed_dir = datadir + 'processed/'
+
+# ===================
+# namelist for shapefile
+# ===================
+
+shpPRD = datadir + 'shapefile/PRD/PRD.shp'
