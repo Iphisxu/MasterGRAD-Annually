@@ -1,5 +1,4 @@
 import numpy as np
-import geopandas as gpd
 import shapely.geometry as sgeom
 from shapely.prepared import prep
 
