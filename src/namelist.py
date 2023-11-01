@@ -26,7 +26,7 @@ def get_END(year,month):
 
 
 # ===================
-# namelist for fnl composite
+# namelist for fnl composite (abandoned)
 # ===================
 
 demodir = datadir + 'FNL/test/'
@@ -43,3 +43,8 @@ grid_d03 = datadir + 'GRID/GRIDCRO2D_D03.nc'
 CB_Sep = datadir + 'COMBINE/Sep/'
 CB_Jul = datadir + 'COMBINE/Jul/'
 
+# ===================
+# namelist for processed data
+# ===================
+
+processed_dir = datadir + 'processed/'
