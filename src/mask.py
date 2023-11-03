@@ -1,4 +1,5 @@
 import numpy as np
+import xarray as xr
 import shapely.geometry as sgeom
 from shapely.prepared import prep
 
@@ -34,3 +35,45 @@ def polygon_to_mask(polygon, x, y):
             mask[index] = True
 
     return mask
+
+
+def average_data(filelist, var):
+    """
+    This function takes a list of file names and a variable name as input,
+    reads the data from each file, computes an average over all files, and returns
+    an xarray DataArray with the averaged data.
+    
+    Parameters
+    ----------
+    filelist : list of str
+        List of file names to read.
+        
+    var : str
+        Name of the variable to extract from the datasets.
+        
+    Returns
+    -------
+    avg_data : xarray.DataArray
+        Averaged data as an xarray DataArray.
+    """
+    select_data = []
+    for file in filelist:
+        ds = xr.open_dataset(file)
+        data = ds[var][:,0,:,:] # Ground level
+        select_data.append(data)
+        ds.close()
+    
+    #// combined = xr.concat(select_data, dim='data_array')
+    #// averaged = combined.mean(dim='data_array')
+
+    averaged = (select_data[0].values 
+                + select_data[1].values 
+                + select_data[2].values) / 3
+    
+    avg_data = xr.DataArray(
+        averaged,
+        dims=data.dims,
+        coords=data.coords,
+        name=var
+    )
+    return avg_data
