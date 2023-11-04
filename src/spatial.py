@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 def plot_PRD_map(gridfile, cmin, cmax, cmstep, cbstep, 
                  data_to_plot, uwind_to_plot, vwind_to_plot,
                  ngrid=None, scale=None, headwidth=None, 
-                 title=None, colorbar_label=None,):
+                 mapcolor=None, title=None, colorbar_label=None,):
     
     '''
     绘制珠三角地区的填色地图，包括污染物浓度和风向风速。
@@ -46,7 +46,11 @@ def plot_PRD_map(gridfile, cmin, cmax, cmstep, cbstep,
     lat = gridfile.latitude
     contourf_ticks = np.arange(cmin, cmax, cmstep)
     colorbar_ticks = np.arange(cmin,cmax+1,cbstep)
-
+    if mapcolor is not None:
+        colormap = mapcolor
+    else:
+        colormap = 'Spectral_r'
+    
     fig = plt.figure(figsize=(12, 6), dpi=300)
     ax = fig.subplots(1, 1, subplot_kw={'projection': ccrs.PlateCarree()})
 
@@ -79,7 +83,7 @@ def plot_PRD_map(gridfile, cmin, cmax, cmstep, cbstep,
     # =============================================
 
     cf = ax.contourf(lon, lat, data_to_plot,
-                     cmap='Spectral_r',
+                     cmap=colormap,
                      levels=contourf_ticks, extend='both',
                      transform=ccrs.PlateCarree())
 
@@ -113,7 +117,7 @@ def plot_PRD_map(gridfile, cmin, cmax, cmstep, cbstep,
 
 def plot_PRD_diff(gridfile, cmin, cmax, cmstep, cbstep, 
                   data1_to_plot, data2_to_plot,
-                  title=None, colorbar_label=None,):
+                  mapcolor=None, title=None, colorbar_label=None,):
     
     '''
     绘制珠三角地区的污染物浓度差值填色图。
@@ -137,7 +141,11 @@ def plot_PRD_diff(gridfile, cmin, cmax, cmstep, cbstep,
 
     fig = plt.figure(figsize=(12, 6), dpi=300)
     ax = fig.subplots(1, 1, subplot_kw={'projection': ccrs.PlateCarree()})
-
+    if mapcolor is not None:
+        colormap = mapcolor
+    else:
+        colormap = 'RdBu_r'
+    
     # =============================================
     # Defining map boundaries
     # =============================================
@@ -167,7 +175,7 @@ def plot_PRD_diff(gridfile, cmin, cmax, cmstep, cbstep,
     # =============================================
 
     cf = ax.contourf(lon, lat, data2_to_plot - data1_to_plot,
-                     cmap='RdBu_r',
+                     cmap=colormap,
                      levels=contourf_ticks, extend='both',
                      transform=ccrs.PlateCarree())
 
