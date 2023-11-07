@@ -29,7 +29,7 @@ def process_mcip(year, month):
     print('Calculating RH ...')
 
     # calculate saturation vapor pressure (es)
-    es = 6.112 * np.exp((17.67 * mcip.SFC_TMP) / (mcip.SFC_TMP + 243.5))
+    es = 6.112 * np.exp((17.67 * mcip.AIR_TMP) / (mcip.AIR_TMP + 243.5))
     # calculate vapor pressure (e)
     e = mcip.PRES * mcip.QV / (0.622 + 0.378 * mcip.QV)
     # calculate relative humidity (RH)
