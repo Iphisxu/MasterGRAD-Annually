@@ -37,7 +37,7 @@ def polygon_to_mask(polygon, x, y):
     return mask
 
 
-def average_data(filelist, var):
+def average_data(filelist, var, level=None):
     """
     This function takes a list of file names and a variable name as input,
     reads the data from each file, computes an average over all files, and returns
@@ -51,6 +51,9 @@ def average_data(filelist, var):
     var : str
         Name of the variable to extract from the datasets.
         
+    level : num
+        Barometric altitude to select. Default None set to 1000hPa.
+        
     Returns
     -------
     avg_data : xarray.DataArray
@@ -59,7 +62,10 @@ def average_data(filelist, var):
     select_data = []
     for file in filelist:
         ds = xr.open_dataset(file)
-        data = ds[var][:,0,:,:] # Ground level
+        if level is not None:
+            data = ds[var].sel(level=level, method='nearest')
+        else:
+            data = ds[var][:,0,:,:] # Ground level
         select_data.append(data)
         ds.close()
     
