@@ -76,3 +76,11 @@ shp_Shenzhen_adm  = admindir + 'Shenzhen/Shenzhen.shp'
 shp_Huizhou_adm   = admindir + 'Huizhou/Huizhou.shp'
 shp_Hongkong_adm  = admindir + 'Hongkong/Hongkong.shp'
 shp_Macau_adm     = admindir + 'Macau/Macau.shp'
+
+# ===================
+# namelist for OBS data
+# ===================
+
+obs_dir = datadir + 'OBS/CHEM/'
+obsSep = obs_dir + 'selTime_Sep/'
+obsJul = obs_dir + 'selTime_Jul/'
