@@ -45,7 +45,7 @@ def plot_PRD_map(gridfile, cmin, cmax, cmstep, cbstep,
     lon = gridfile.longitude
     lat = gridfile.latitude
     contourf_ticks = np.arange(cmin, cmax, cmstep)
-    colorbar_ticks = np.arange(cmin,cmax+1,cbstep)
+    colorbar_ticks = np.arange(cmin,cmax+0.01,cbstep)
     if mapcolor is not None:
         colormap = mapcolor
     else:
@@ -137,7 +137,7 @@ def plot_PRD_diff(gridfile, cmin, cmax, cmstep, cbstep,
     lon = gridfile.longitude
     lat = gridfile.latitude
     contourf_ticks = np.arange(cmin, cmax, cmstep)
-    colorbar_ticks = np.arange(cmin,cmax+1,cbstep)
+    colorbar_ticks = np.arange(cmin,cmax+0.01,cbstep)
 
     fig = plt.figure(figsize=(12, 6), dpi=300)
     ax = fig.subplots(1, 1, subplot_kw={'projection': ccrs.PlateCarree()})
