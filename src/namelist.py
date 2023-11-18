@@ -1,4 +1,4 @@
-progdir = 'D:/Academic/Project/Graduation/'
+progdir = 'D:/Academic/Project/GRAD/'
 datadir = 'D:/data/Graduation/'
 
 # ===================
