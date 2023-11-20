@@ -22,7 +22,8 @@ warnings.filterwarnings("ignore")
 def plot_PRD_map(gridfile, cmin, cmax, cmstep, cbstep, 
                  data_to_plot, uwind_to_plot, vwind_to_plot,
                  ngrid=None, scale=None, headwidth=None, 
-                 mapcolor=None, title=None, colorbar_label=None,):
+                 mapcolor=None, title=None, colorbar_label=None,
+                 outpath = None):
     
     '''
     绘制珠三角地区的填色地图，包括污染物浓度和风向风速。
@@ -115,10 +116,14 @@ def plot_PRD_map(gridfile, cmin, cmax, cmstep, cbstep,
         cbar.set_label(colorbar_label)
 
     plt.show()
+    
+    if outpath is not None:
+        fig.savefig(outpath, dpi=300, bbox_inches='tight')
 
 def plot_PRD_diff(gridfile, cmin, cmax, cmstep, cbstep, 
                   data1_to_plot, data2_to_plot,
-                  mapcolor=None, title=None, colorbar_label=None,):
+                  mapcolor=None, title=None, colorbar_label=None,
+                  outpath=None):
     
     '''
     绘制珠三角地区的污染物浓度差值填色图。
@@ -196,12 +201,16 @@ def plot_PRD_diff(gridfile, cmin, cmax, cmstep, cbstep,
 
     plt.show()
     
+    if outpath is not None:
+        fig.savefig(outpath, dpi=300, bbox_inches='tight')
+    
 
 def plot_map_withobs(gridfile, cmin, cmax, cmstep, cbstep, 
                  data_to_plot, uwind_to_plot, vwind_to_plot,
                  obsdata, obslon, obslat,
                  ngrid=None, scale=None, headwidth=None, 
-                 mapcolor=None, title=None, colorbar_label=None,):
+                 mapcolor=None, title=None, colorbar_label=None,
+                 outpath=None):
 
     lon = gridfile.longitude
     lat = gridfile.latitude
@@ -285,12 +294,16 @@ def plot_map_withobs(gridfile, cmin, cmax, cmstep, cbstep,
 
     plt.show()
     
+    if outpath is not None:
+        fig.savefig(outpath, dpi=300, bbox_inches='tight')
+    
 
 def plot_diff_withobs(gridfile, cmin, cmax, cmstep, cbstep, 
                   data1_to_plot, data2_to_plot,
                   obs1_to_plot, obs2_to_plot, 
                   obslon, obslat,
-                  mapcolor=None, title=None, colorbar_label=None,):
+                  mapcolor=None, title=None, colorbar_label=None,
+                  outpath=None):
     
     lon = gridfile.longitude
     lat = gridfile.latitude
@@ -361,3 +374,6 @@ def plot_diff_withobs(gridfile, cmin, cmax, cmstep, cbstep,
         cbar.set_label(colorbar_label)
 
     plt.show()
+    
+    if outpath is not None:
+        fig.savefig(outpath, dpi=300, bbox_inches='tight')
