@@ -40,7 +40,7 @@ CB_Jul = datadir + 'COMBINE/Jul/'
 # ===================
 
 processed_dir = datadir + 'processed/'
-
+rfpath = datadir + 'Contribution/RandomForest_output/'
 
 # ===================
 # namelist for OBS data
