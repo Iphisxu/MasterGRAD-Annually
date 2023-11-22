@@ -50,6 +50,10 @@ obs_dir = datadir + 'OBS/CHEM/'
 obsSep = obs_dir + 'selTime_Sep/'
 obsJul = obs_dir + 'selTime_Jul/'
 
+# ===================
+# namelist for MEIC data
+# ===================
+meicdata = datadir + 'MEIC/'
 
 # ===================
 # namelist for shapefile
