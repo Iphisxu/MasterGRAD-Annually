@@ -14,11 +14,17 @@ def nc_to_df(varlist, input_ds, level, mask_da, dfout):
     Convert netcdf data to pandas dataframe
     """
     for var in varlist:
-        inputvar = input_ds[var].sel(level=level,method='nearest').squeeze()
-        inputmask = inputvar.where(mask_da)
-        output = inputmask.mean(dim=('x','y'),skipna=True)
-        dfout[var] = output.values
-        print(f'Complete {var}')
+        if var == 'QV':
+            inputvar = input_ds[var].sel(level=level,method='nearest').squeeze()
+            inputmask = inputvar.where(mask_da)
+            output = inputmask.mean(dim=('x','y'),skipna=True)
+            dfout[var] = output.values*1000
+        else:
+            inputvar = input_ds[var].sel(level=level,method='nearest').squeeze()
+            inputmask = inputvar.where(mask_da)
+            output = inputmask.mean(dim=('x','y'),skipna=True)
+            dfout[var] = output.values
+        # print(f'Complete {var}')
         
     return None
 
@@ -44,7 +50,7 @@ def write_to_excel(year, month, level, region,
     mcip = xr.open_dataset(datadir + f'processed/{month}_{year}/{month}_{year}_mcip.nc')
     chem = xr.open_dataset(datadir + f'processed/{month}_{year}/{month}_{year}_chem.nc')
     
-    shp = gpd.read_file(eval(f'shp_{region}_adm'))
+    shp = gpd.read_file(shp_files[f'{region}_adm'])
     lon = chem.longitude
     lat = chem.latitude
     mask    = polygon_to_mask(shp.geometry[0], lon, lat)
