@@ -47,8 +47,12 @@ rfpath = datadir + 'Contribution/RandomForest_output/'
 # ===================
 
 obs_dir = datadir + 'OBS/CHEM/'
-obsSep = obs_dir + 'selTime_Sep/'
-obsJul = obs_dir + 'selTime_Jul/'
+def get_obspath(month):
+    if month == "Jul":
+        obspath = obs_dir + 'selTime_Jul/'
+    elif month == "Sep":
+        obspath = obs_dir + 'selTime_Sep/'
+    return obspath
 
 # ===================
 # namelist for MEIC data
@@ -62,7 +66,8 @@ meicdata = datadir + 'MEIC/'
 geobdydir = datadir + 'shapefile/cities_geobdy/'
 admindir = datadir + 'shapefile/cities_admin/'
 
-city_names = ['PRD', 'Guangzhou', 'Foshan', 'Zhongshan', 'Zhuhai', 'Zhaoqing', 'Jiangmen',
+city_names = ['PRD', 'PRD_merge', 'Guangzhou', 'Foshan',
+              'Zhongshan', 'Zhuhai', 'Zhaoqing', 'Jiangmen',
               'Dongguan', 'Shenzhen', 'Huizhou', 'Hongkong', 'Macau']
 
 shp_files = {}
