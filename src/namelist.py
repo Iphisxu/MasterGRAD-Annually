@@ -28,9 +28,15 @@ def get_END(year,month):
 # namelist for data preprocess
 # ===================
 
-grid_d01 = datadir + 'GRID/GRIDCRO2D_D01.nc'
-grid_d02 = datadir + 'GRID/GRIDCRO2D_D02.nc'
-grid_d03 = datadir + 'GRID/GRIDCRO2D_D03.nc'
+griddir = datadir + 'GRID/'
+
+geo_d01 = griddir + 'geo_em.d01.nc'
+geo_d02 = griddir + 'geo_em.d02.nc'
+geo_d03 = griddir + 'geo_em.d03.nc'
+
+grid_d01 = griddir + 'GRIDCRO2D_D01.nc'
+grid_d02 = griddir + 'GRIDCRO2D_D02.nc'
+grid_d03 = griddir + 'GRIDCRO2D_D03.nc'
 
 CB_Sep = datadir + 'COMBINE/Sep/'
 CB_Jul = datadir + 'COMBINE/Jul/'
