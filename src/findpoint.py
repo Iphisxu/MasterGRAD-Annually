@@ -24,28 +24,53 @@ def findpoint(in_lon, in_lat, ncfile):
     return x_index, y_index
 
 
+'''
+# 距离加权算法 from ChatGPT 2024-03-30
 
-def findpoint_test(in_lon, in_lat, nlon, nlat):
-    """
-    in_lon: longitude of the station
-    in_lat: latitude of the station
-    nlon: longitude of the model domain (2D Var)
-    nlat: latitude of the model domain (2D Var)
-    out_x: the nearest position of the station in the model domain in x direction
-    out_y: the nearest position of the station in the model domain in y direction
-    """
-       
-    xnum, ynum = nlon.shape
-    gridnum = xnum * ynum
+from scipy.spatial.distance import cdist
+def find_nearest_grid_point(latitude, longitude, grid_latitudes, grid_longitudes):
+    # 将经纬度转换为二维数组
+    points = np.vstack([latitude, longitude]).T
     
-    nlon = nlon.reshape(gridnum, 1)
-    nlat = nlat.reshape(gridnum, 1)
+    # 计算所有网格点与指定点的距离
+    distances = cdist(points, np.vstack([grid_latitudes, grid_longitudes]).T)
     
-    out_x = np.nan
-    out_y = np.nan
+    # 找到距离最近的网格点的索引
+    nearest_index = np.unravel_index(np.argmin(distances), distances.shape)
     
-    index = np.argmin((nlon - in_lon) ** 2 + (nlat - in_lat) ** 2)
-    out_y = np.ceil((index + 1) / xnum)
-    out_x = index + 1 - xnum * (out_y - 1)
+    # 返回最近的网格点的经纬度
+    nearest_latitude = grid_latitudes[nearest_index[1]]
+    nearest_longitude = grid_longitudes[nearest_index[0]]
     
-    return out_x, out_y
+    return nearest_latitude, nearest_longitude
+
+def weighted_average_value(latitude, longitude, grid_latitudes, grid_longitudes, grid_values):
+    # 找到距离最近的四个网格点的索引
+    nearest_indices = np.argsort(cdist(np.vstack([latitude, longitude]).T, np.vstack([grid_latitudes, grid_longitudes]).T))[:, :4]
+    
+    # 计算距离指定点最近的四个网格点的距离的倒数作为权重
+    weights = 1 / cdist(np.vstack([latitude, longitude]).T, np.vstack([grid_latitudes[nearest_indices], grid_longitudes[nearest_indices]]))
+    
+    # 对值进行加权平均
+    weighted_average = np.sum(grid_values[nearest_indices[:, 0]] * weights[:, 0]) / np.sum(weights[:, 0])
+    
+    return weighted_average
+
+# 示例用法
+# 假设有网格数据：各个格点的经纬度和值
+grid_latitudes = np.random.uniform(-90, 90, size=(10, 10))
+grid_longitudes = np.random.uniform(-180, 180, size=(10, 10))
+grid_values = np.random.rand(10, 10)
+
+# 指定一个经纬度点
+latitude = 30
+longitude = 100
+
+# 找到距离指定点最近的网格点
+nearest_latitude, nearest_longitude = find_nearest_grid_point(latitude, longitude, grid_latitudes, grid_longitudes)
+print("距离指定点最近的网格点的经纬度:", nearest_latitude, nearest_longitude)
+
+# 计算指定点的加权平均值
+weighted_average = weighted_average_value(latitude, longitude, grid_latitudes, grid_longitudes, grid_values)
+print("指定点的加权平均值:", weighted_average)
+'''
